@@ -13,20 +13,20 @@ def ldamodel(df:pd.DataFrame, k:int):
     """Define the LDA model """
     
     words = pbk.keyword_parser(pbk.keyword_list(df))
-    model=tp.LDAModel(min_cf=5, k=k)
+    model=tp.LDAModel(min_cf=5, rm_top=10, k=k, seed=42)
 
     for k in range(len(words)):
         model.add_doc(words=words[k])
     
-    mdl.train(0)
+    model.train(0)
 
     # print docs, vocabs and words
     print('Num docs:{}, Num Vocabs:{}, Total Words:{}'.format(
-        len(mdl.docs), len(mdl.used_vocabs), mdl.num_words
+        len(model.docs), len(model.used_vocabs), model.num_words
     ))
 
     # train the model
-    mdl.train(1000, show_progress=True)
+    model.train(2000, show_progress=True)
     return model
 
 def find_proper_k(df:pd.DataFrame, start:int, end:int):
@@ -36,7 +36,7 @@ def find_proper_k(df:pd.DataFrame, start:int, end:int):
 
     for i in range(start,end+1):        
         # model setting
-        mdl=tp.LDAModel(min_cf=5, k=i)
+        mdl=tp.LDAModel(min_cf=5, rm_top=10, k=i, seed=42)
         
         for k in range(len(words)):
             mdl.add_doc(words=words[k])
@@ -94,7 +94,7 @@ def get_ldavis(mdl):
     )
 
     # save result
-    pyLDAvis.save_html(prepared_data, 'ldavis.html')
+    pyLDAvis.save_html(prepared_data, 'view/ldavis.html')
 
 # data load
 # The data is related to Handong University, 
@@ -102,7 +102,7 @@ def get_ldavis(mdl):
 df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
 #find proper k value
-proper_k = find_proper_k(df, 2,10)
+proper_k = find_proper_k(df, 3,10)
 
 # Model setting with K
 mdl = ldamodel(df, proper_k)
@@ -110,5 +110,5 @@ mdl = ldamodel(df, proper_k)
 # get summary
 mdl.summary()
 
-# save model
+# save result
 get_ldavis(mdl)

@@ -28,7 +28,7 @@ plot(topicN_storage)
 
 stm_model <- stm(documents = out$documents, 
                  vocab = out$vocab, 
-                 K = 10, 
+                 K = 7, 
                  prevalence = ~ Press + Date, 
                  data = out$meta, 
                  max.em.its = 100, 

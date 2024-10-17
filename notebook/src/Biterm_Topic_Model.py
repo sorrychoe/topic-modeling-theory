@@ -24,6 +24,32 @@ else:
 
 plt.rcParams["axes.unicode_minus"] = False
 
+def find_proper_t(X:np.ndarray, vocabulary:np.ndarray, start:int, end:int):
+    """find proper k value for hyperparameter tunning"""
+    for i in range(start, end+1):
+        model = btm.BTM(X, vocabulary, seed=42, T=i, M=20, alpha=50/i, beta=0.01)
+        coherence = btm.coherence(model.matrix_topics_words_, X, M=20)
+        
+        # initial value setup
+        if i == start:
+            proper_k = start
+            tmp = np.mean(coherence)
+        
+        # print it out
+        print('==== Coherence : k = {} ===='.format(i))
+        print("\n")
+        print('Average: {}'.format(np.mean(coherence)))
+        print("\n")
+        print('Per Topic:{}'.format(coherence))
+        print("\n")
+        print("\n")
+        
+        # update k
+        if tmp < np.mean(coherence):
+            proper_k = i
+            tmp = np.mean(coherence)
+    return proper_k
+
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
@@ -45,9 +71,12 @@ docs_lens = list(map(len, docs_vec))
 # Generating biterms
 biterms = btm.get_biterms(docs_vec)
 
+# find the proper T
+topic_num = find_proper_t(X, vocabulary, 3, 10)
+
 # train the model
-model = btm.BTM(X, vocabulary, seed=42, T=10, M=20, alpha=50/10, beta=0.01)
-iterations = 1000
+model = btm.BTM(X, vocabulary, seed=42, T=topic_num, M=20, alpha=50/7, beta=0.01)
+iterations = 2000
 model.fit(biterms, iterations)
 
 # extract the topics-words distribution
@@ -80,6 +109,6 @@ topic_proportions = doc_topics.mean(axis=0)
 
 plt.figure(figsize=(8, 6))
 sns.barplot(x=[f'Topic {i}' for i in range(len(topic_proportions))], y=topic_proportions)
-plt.title('토픽 분포')
-plt.ylabel('비율')
+plt.title('topic distribution')
+plt.ylabel('ratio')
 plt.show()

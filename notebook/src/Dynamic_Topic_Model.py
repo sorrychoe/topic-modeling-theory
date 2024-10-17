@@ -3,7 +3,7 @@ import numpy as np # for data preprocessing
 import pandas as pd # for load excel data
 import pyBigKinds as pbk # for preprocessing news text data
 import tomotopy as tp # for topic modeling
-import pyLDAvis # for visualize the Topic Modeling result
+import matplotlib.pyplot as plt # for visualize the plot
 
 # for ignore the warning message
 import warnings
@@ -13,7 +13,7 @@ def dtmmodel(df:pd.DataFrame, k:int):
     """Define the DTM model """
     words = pbk.keyword_parser(pbk.keyword_list(df))
     t = np.max(df["시점"])+1
-    model = tp.DTModel(min_cf=5, t=t, k=k)
+    model = tp.DTModel(min_cf=5, rm_top=10, t=t, k=k, seed=42)
 
     for i in range(len(words)):
         model.add_doc(words=words[i], timepoint=df["시점"][i])
@@ -25,7 +25,7 @@ def dtmmodel(df:pd.DataFrame, k:int):
         len(model.docs), len(model.used_vocabs), model.num_words
     ))
 
-    model.train(1000, show_progress=True)
+    model.train(2000, show_progress=True)
     
     return model
 
@@ -34,7 +34,7 @@ def find_proper_k(df, start, end):
     words = pbk.keyword_parser(pbk.keyword_list(df))
     for i in range(start,end+1):        
         # model setting
-        mdl=tp.DTModel(min_cf=5, k=i, t=(np.max(df["시점"])+1))
+        mdl=tp.DTModel(min_cf=5, rm_top=10, k=i, t=(np.max(df["시점"])+1), seed=42)
         
         for k in range(len(words)):
             mdl.add_doc(words=words[k], timepoint=df["시점"][k])
@@ -59,8 +59,8 @@ def find_proper_k(df, start, end):
             print("\n")
             
             average_coh.append(t_coh)
-        if i == 2:
-            proper_k = 2
+        if i == 3:
+            proper_k = 3
             tmp = np.mean(average_coh)
         elif tmp < np.mean(average_coh):
             proper_k = i
@@ -68,30 +68,17 @@ def find_proper_k(df, start, end):
 
     return proper_k    
 
-def get_dtmvis(mdl):
+def dtm_plot(df):
     """preprocessing for DTM Topic data visualization"""
-    
-    # get the values
-    for timepoint in range(mdl.num_timepoints):
-        topic_term_dists = np.stack([mdl.get_topic_word_dist(k, timepoint=timepoint) for k in range(mdl.k)])
-        doc_topic_dists = np.stack([doc.get_topic_dist() for doc in mdl.docs if doc.timepoint == timepoint])
-        doc_topic_dists /= doc_topic_dists.sum(axis=1, keepdims=True)
-        doc_lengths = np.array([len(doc.words) for doc in mdl.docs if doc.timepoint == timepoint])
-        vocab = list(mdl.used_vocabs)
-        term_frequency = mdl.used_vocab_freq
+    f = plt.figure()
+    plt.title('Changes in topic percentage by year', color='black')
+    df.plot(ax=f.gca(),colormap='gnuplot')
+    plt.xticks(np.array(range(1995,2024)),rotation=45)
 
-        # set dtmvis data
-        prepared_data = pyLDAvis.prepare(
-            topic_term_dists, 
-            doc_topic_dists, 
-            doc_lengths, 
-            vocab, 
-            term_frequency,
-            start_index=0,
-            sort_topics=False
-        )
-        # output files
-        pyLDAvis.save_html(prepared_data, 'dtmvis_{}.html'.format(timepoint))
+    ax=f.gca()
+    ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
+    ax.set_ylabel('percent(%)')
+    plt.show()
         
 # data load
 # The data is related to Handong University, 
@@ -104,7 +91,7 @@ df = df.sort_values("시점")
 df.reset_index(drop=True, inplace=True)
 
 #find proper k value
-proper_k = find_proper_k(df, 2,10)
+proper_k = find_proper_k(df, 3 ,10)
 
 # Model setting with K
 mdl = dtmmodel(df, proper_k)
@@ -112,5 +99,9 @@ mdl = dtmmodel(df, proper_k)
 # get summary
 mdl.summary()
 
-# save model
-get_dtmvis(mdl)
+# get dtm dataframe
+dtm_df = pd.DataFrame(mdl.get_count_by_topics())
+dtm_df.index = df["시점"].unique() + 1995
+
+# show result as a plot
+dtm_plot(dtm_df)

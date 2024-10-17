@@ -13,7 +13,7 @@ def ctmmodel(df:pd.DataFrame, k:int):
     """Define CTM model """
     
     words = pbk.keyword_parser(pbk.keyword_list(df))
-    model = tp.CTModel(tw=tp.TermWeight.IDF, min_cf=5, k=k)
+    model = tp.CTModel(tw=tp.TermWeight.IDF, min_cf=5, rm_top=10, k=k, seed=42)
 
     for k in range(len(words)):
         model.add_doc(words=words[k])
@@ -29,11 +29,9 @@ def ctmmodel(df:pd.DataFrame, k:int):
     print('Removed Top words: ', *model.removed_top_words)
     
     # train the model
-    model.train(1000, show_progress=True)
-    model.summary()
+    model.train(2000, show_progress=True)
 
     return model
-
 
 def find_proper_k(df:pd.DataFrame, start:int, end:int):
     """find proper k value for hyperparameter tunning"""
@@ -42,13 +40,13 @@ def find_proper_k(df:pd.DataFrame, start:int, end:int):
 
     for i in range(start,end+1):        
         # model setting
-        mdl=tp.CTModel(tw=tp.TermWeight.IDF, min_cf=5, k=i)
+        mdl=tp.CTModel(tw=tp.TermWeight.IDF, min_cf=5, rm_top=10, k=i, seed=42)
         
         for k in range(len(words)):
             mdl.add_doc(words=words[k])
             
         # pre-train the model for check the coherence score
-        mdl.train(50)
+        mdl.train(100)
         
         # get the coherence score
         coh = tp.coherence.Coherence(mdl, coherence='c_v')
@@ -99,7 +97,7 @@ def get_ctm_network(mdl):
     
     g.barnes_hut(gravity=-1000, spring_length=20)
     g.show_buttons()
-    g.show("topic_network.html", notebook=False)
+    g.show("view/topic_network.html", notebook=False)
     
     
 # data load
@@ -107,8 +105,8 @@ def get_ctm_network(mdl):
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
 df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
-#find proper k value
-proper_k = find_proper_k(df, 2,10)
+# proper k value
+proper_k = find_proper_k(df, 3, 10)
 
 # Model setting with K
 mdl = ctmmodel(df, proper_k)
