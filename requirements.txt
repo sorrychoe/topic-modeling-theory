@@ -1,0 +1,15 @@
+numpy==1.26.4
+pandas==2.0.0
+pyBigKinds>=1.2.0
+tomotopy==0.12.7
+pyLDAvis==3.4.1
+pyvis==0.3.2
+scikit-learn>=1.0.0
+konlpy==0.6.0
+bertopic==0.16.4
+mecab-python3>=1.0.0
+seaborn>=0.12.0
+wordcloud==1.9.3
+bitermplus==0.7.0
+
+
