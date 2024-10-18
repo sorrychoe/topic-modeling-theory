@@ -1,4 +1,4 @@
-# Topic-Modeling Theories
+# Topic-Modeling-Theories
 
 This repository provides an in-depth exploration of various topic modeling techniques, implemented using Python and Jupyter Notebooks. The following models are covered:
 
@@ -20,8 +20,8 @@ For **Windows users**, please refer to [this guide](https://gnuwin32.sourceforge
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/sorrychoe/topic-modeling-theory.git
+   cd topic-modeling-theory
    ```
 
 2. Initialize the setup:
