@@ -1,6 +1,6 @@
 # Topic-Modeling-Theories
 
-This repository provides an in-depth exploration of various topic modeling techniques, implemented using Python and Jupyter Notebooks. The following models are covered:
+This repository provides an in-depth exploration of various topic modeling techniques, implemented using Python and Jupyter Notebooks(or Jupyter lab). The following models are covered:
 
 - **Latent Dirichlet Allocation (LDA)**
 - **Dynamic Topic Model (DTM)**
@@ -40,12 +40,18 @@ Now you're ready to start exploring the topic modeling notebooks.
 
 Each model is implemented in a separate Jupyter Notebook, providing explanations and code walkthroughs. You can start by running any of the notebooks to see how the models work and modify the code to fit your specific use case.
 
-1. **notebook/Latent_Dirichlet_Allocation.ipynb**: Theory & Python Sample Code of Latent Dirichlet Allocation.
-2. **notebook/Dynamic_Topic_Model.ipynb**: Theory & Python Sample Code of Dynamic Topic Model.
-3. **notebook/Topic_over_Time.ipynb**: Theory & Python Sample Code(Alternative) of Topics Over Time.
-4. **notebook/Correlated_Topic_Model.ipynb**: Theory & Python Sample Code of Correlated Topic Model.
-5. **notebook/Structural_Topic_Model.ipynb**: Theory & R Sample Code of Structural Topic Model.
-6. **notebook/Biterm_Topic_Model.ipynb**: Theory & Python Sample Code of Biterm Topic Model.
+1. **notebook/Latent_Dirichlet_Allocation.ipynb**:
+   - Theory & Python Sample Code of Latent Dirichlet Allocation.
+2. **notebook/Dynamic_Topic_Model.ipynb**:
+   - Theory & Python Sample Code of Dynamic Topic Model.
+3. **notebook/Topic_over_Time.ipynb**:
+   - Theory & Python Sample Code(Alternative) of Topics Over Time.
+4. **notebook/Correlated_Topic_Model.ipynb**:
+   - Theory & Python Sample Code of Correlated Topic Model.
+5. **notebook/Structural_Topic_Model.ipynb**:
+    - Theory & R Sample Code of Structural Topic Model.
+6. **notebook/Biterm_Topic_Model.ipynb**:
+    - Theory & Python Sample Code of Biterm Topic Model.
 
 ## Authors
 
