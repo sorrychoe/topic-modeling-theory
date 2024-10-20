@@ -12,9 +12,10 @@ ipython_config.py
 #   git rm -r .ipynb_checkpoints/
 
 # unnecessry directory
-docs/
+source/
 lib/
 guideline/
+**/docs/
 
 # for MAC
 .DS_Store
