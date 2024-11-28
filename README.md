@@ -8,6 +8,7 @@ This repository provides an in-depth exploration of various topic modeling techn
 - **Correlated Topic Model (CTM)**
 - **Structural Topic Model (STM)**
 - **Biterm Topic Model (BTM)**
+- **BERTopic**
 
 ## Getting Started
 
