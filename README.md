@@ -46,13 +46,15 @@ Each model is implemented in a separate Jupyter Notebook, providing explanations
 2. **notebook/Dynamic_Topic_Model.ipynb**:
    - Theory & Python Sample Code of Dynamic Topic Model.
 3. **notebook/Topic_over_Time.ipynb**:
-   - Theory & Python Sample Code(Alternative) of Topics Over Time.
+   - Theory about Topics Over Time.
 4. **notebook/Correlated_Topic_Model.ipynb**:
    - Theory & Python Sample Code of Correlated Topic Model.
 5. **notebook/Structural_Topic_Model.ipynb**:
     - Theory & R Sample Code of Structural Topic Model.
 6. **notebook/Biterm_Topic_Model.ipynb**:
     - Theory & Python Sample Code of Biterm Topic Model.
+7. **notebook/BERTopic.ipynb**:
+   - Theory & Python Sample Code of BERTopic.
 
 ## Authors
 
