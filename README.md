@@ -45,7 +45,7 @@ Each model is implemented in a separate Jupyter Notebook, providing explanations
    - Theory & Python Sample Code of Latent Dirichlet Allocation.
 2. **notebook/Dynamic_Topic_Model.ipynb**:
    - Theory & Python Sample Code of Dynamic Topic Model.
-3. **notebook/Topic_over_Time.ipynb**:
+3. **notebook/Topic_over_Times.ipynb**:
    - Theory about Topics Over Time.
 4. **notebook/Correlated_Topic_Model.ipynb**:
    - Theory & Python Sample Code of Correlated Topic Model.

@@ -18,8 +18,8 @@ init:
 
 install:
 	$(python) -m pip install $(pip_user_option) -r requirements.txt
-	Rscript lib/install_package.R
-	Rscript lib/install_kernel.R
+	Rscript install_package.R
+	Rscript install_kernel.R
 
 clear:
 	shopt -s globstar ; \
