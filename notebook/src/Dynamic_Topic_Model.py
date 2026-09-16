@@ -25,8 +25,8 @@ def dtmmodel(df:pd.DataFrame, k:int):
         len(model.docs), len(model.used_vocabs), model.num_words
     ))
 
-    model.train(2000, show_progress=True)
-    
+    model.train(2000, show_progress=True, callback=lambda *args: None)
+
     return model
 
 def find_proper_k(df, start, end):
@@ -59,8 +59,8 @@ def find_proper_k(df, start, end):
             print("\n")
             
             average_coh.append(t_coh)
-        if i == 3:
-            proper_k = 3
+        if i == start:
+            proper_k = start
             tmp = np.mean(average_coh)
         elif tmp < np.mean(average_coh):
             proper_k = i

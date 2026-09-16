@@ -28,8 +28,7 @@ def ctmmodel(df:pd.DataFrame, k:int):
     ))
     print('Removed Top words: ', *model.removed_top_words)
     
-    # train the model
-    model.train(2000, show_progress=True)
+    model.train(2000, show_progress=True, callback=lambda *args: None)
 
     return model
 
@@ -80,12 +79,20 @@ def find_proper_k(df:pd.DataFrame, start:int, end:int):
 def get_ctm_network(mdl):
     """ctm result visualization through Network"""
 
-    g = Network(width=800, height=800, font_color="#333")
+    # NOTE: pyvis only puts an explicit background on the #mynetwork canvas
+    # div; the surrounding <body>/page is left unstyled, so it falls back to
+    # the host's own default -- which, in a dark-themed viewer (e.g. VS
+    # Code's Jupyter renderer, which applies `prefers-color-scheme: dark` to
+    # the embedding iframe), is white-on-transparent turning into an
+    # unreadable or jarring-white result. bgcolor/font_color below make the
+    # whole visualization dark by default so it matches a dark host instead
+    # of assuming a light one.
+    g = Network(width=800, height=800, bgcolor="#1e1e1e", font_color="#e0e0e0")
     correl = mdl.get_correlations().reshape([-1])
     correl.sort()
     top_tenth = mdl.k * (mdl.k - 1) // 10
     top_tenth = correl[-mdl.k - top_tenth]
-    
+
     for k in range(mdl.k):
         label = "#{}".format(k)
         title= ' '.join(word for word, _ in mdl.get_topic_words(k, top_n=6))
@@ -94,12 +101,26 @@ def get_ctm_network(mdl):
         for l, correlation in zip(range(k - 1), mdl.get_correlations(k)):
             if correlation < top_tenth: continue
             g.add_edge(k, l, value=float(correlation), title='{:.02}'.format(correlation))
-    
+
     g.barnes_hut(gravity=-1000, spring_length=20)
     g.show_buttons()
     g.show("view/topic_network.html", notebook=False)
-    
-    
+
+    # Match the rest of the page (<body>, card wrapper, headings) to the same
+    # dark background, since pyvis leaves everything outside #mynetwork
+    # unstyled.
+    with open("view/topic_network.html", "r", encoding="utf-8") as f:
+        html = f.read()
+    html = html.replace(
+        "<head>",
+        '<head>\n<meta name="color-scheme" content="dark">\n'
+        '<style>html, body { background-color: #1e1e1e; }</style>',
+        1,
+    )
+    with open("view/topic_network.html", "w", encoding="utf-8") as f:
+        f.write(html)
+
+
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.

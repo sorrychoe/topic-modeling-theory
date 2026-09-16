@@ -3,6 +3,7 @@ import numpy as np # for data preprocessing
 import pandas as pd # for load excel data
 import bitermplus as btm # for topic modeling
 import matplotlib.pyplot as plt # for visualization result
+import matplotlib.font_manager as fm # for resolving a Korean font to an actual file path
 import seaborn as sns # for visualization result
 from wordcloud import WordCloud # for visualization result as a wordcloud
 import platform # for check the OS
@@ -11,17 +12,39 @@ import platform # for check the OS
 import warnings
 warnings.filterwarnings("ignore")
 
-if platform.system() in ["Windows", "Linux"]:
-    plt.rcParams["font.family"] = "Malgun Gothic"
-    font_path = "malgun"
+def resolve_korean_font():
+    """Find an installed Korean-capable font and return (family_name, font_file_path).
 
-elif platform.system() == "Darwin":
-    plt.rcParams["font.family"] = "AppleGothic"
-    font_path = "AppleGothic"
+    matplotlib's rcParams["font.family"] accepts a font *name* and resolves it
+    itself, but wordcloud.WordCloud(font_path=...) requires an actual *file
+    path* to a .ttf/.otf file. A bare name like "malgun" or "AppleGothic" is
+    not a valid path, so passing one directly to WordCloud raises
+    `OSError: cannot open resource`. This looks up a real font file for
+    whichever Korean-capable font is actually installed on the current OS.
+    """
+    system = platform.system()
+    if system == "Windows":
+        candidates = ["Malgun Gothic", "NanumGothic", "Gulim", "Batang"]
+    elif system == "Darwin":
+        candidates = ["AppleGothic", "Apple SD Gothic Neo", "NanumGothic"]
+    else:  # Linux and every other platform
+        candidates = ["NanumGothic", "NanumBarunGothic", "Noto Sans CJK KR", "UnDotum"]
 
-else:
-    print("Unsupported OS.")
+    available = {font.name for font in fm.fontManager.ttflist}
+    for name in candidates:
+        if name in available:
+            try:
+                path = fm.findfont(fm.FontProperties(family=name), fallback_to_default=False)
+                return name, path
+            except ValueError:
+                continue
 
+    print(f"No Korean font found for '{system}'. Hangul may not render correctly; install e.g. 'NanumGothic'.")
+    default_family = plt.rcParams["font.family"]
+    return (default_family[0] if isinstance(default_family, list) else default_family), None
+
+font_family, font_path = resolve_korean_font()
+plt.rcParams["font.family"] = font_family
 plt.rcParams["axes.unicode_minus"] = False
 
 def find_proper_t(X:np.ndarray, vocabulary:np.ndarray, start:int, end:int):
@@ -75,7 +98,7 @@ biterms = btm.get_biterms(docs_vec)
 topic_num = find_proper_t(X, vocabulary, 3, 10)
 
 # train the model
-model = btm.BTM(X, vocabulary, seed=42, T=topic_num, M=20, alpha=50/7, beta=0.01)
+model = btm.BTM(X, vocabulary, seed=42, T=topic_num, M=20, alpha=50/topic_num, beta=0.01)
 iterations = 2000
 model.fit(biterms, iterations)
 
@@ -95,7 +118,7 @@ def draw_word_clouds(topic_word_dist, vocab):
     for i, topic_dist in enumerate(topic_word_dist):
         plt.figure(figsize=(8, 6))
         freq = {vocab[j]: topic_dist[j] for j in range(len(vocab))}
-        wordcloud = WordCloud(background_color='white', font_path = "AppleGothic").generate_from_frequencies(freq)
+        wordcloud = WordCloud(background_color='white', font_path=font_path).generate_from_frequencies(freq)
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
         plt.title(f'Topic {i}')

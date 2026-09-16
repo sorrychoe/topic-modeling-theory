@@ -26,7 +26,7 @@ def ldamodel(df:pd.DataFrame, k:int):
     ))
 
     # train the model
-    model.train(2000, show_progress=True)
+    model.train(2000, show_progress=True, callback=lambda *args: None)
     return model
 
 def find_proper_k(df:pd.DataFrame, start:int, end:int):
@@ -84,13 +84,14 @@ def get_ldavis(mdl):
 
     # prepara dataset
     prepared_data = pyLDAvis.prepare(
-        topic_term_dists, 
-        doc_topic_dists, 
-        doc_lengths, 
-        vocab, 
+        topic_term_dists,
+        doc_topic_dists,
+        doc_lengths,
+        vocab,
         term_frequency,
-        start_index=0, 
-        sort_topics=False 
+        start_index=0,
+        sort_topics=False,
+        mds='mmds'
     )
 
     # save result
