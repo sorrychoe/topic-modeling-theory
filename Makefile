@@ -24,7 +24,7 @@ init:
 # Requires Rscript to be installed and on PATH.
 install: install-python install-r
 
-# Everything needed for the Python notebooks (LDA, DTM, ToT, CTM, BTM, BERTopic).
+# Everything needed for the Python notebooks (LDA, DTM, CTM, BTM, BERTopic).
 install-python:
 	$(python) -m pip install $(pip_user_option) -r requirements.txt
 
