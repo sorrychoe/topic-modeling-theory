@@ -14,8 +14,14 @@ This repository provides an in-depth exploration of various topic modeling techn
 
 ### Prerequisites
 
-Before setting up the environment, ensure that `Make` is installed on your system. 
-For **Windows users**, please refer to [this guide](https://gnuwin32.sourceforge.net/packages/make.htm) to install `Make`.
+- **Make**: Before setting up the environment, ensure that `Make` is installed on your system.
+  For **Windows users**, please refer to [this guide](https://gnuwin32.sourceforge.net/packages/make.htm) to install `Make`.
+
+- **Python 3** with `pip`, on your `PATH`.
+
+- **R with `Rscript`**, only if you plan to run `notebook/Structural_Topic_Model.ipynb` (it is the only notebook implemented in R, via the `stm` package). If you don't need it, skip `make install-r` below.
+
+- **Mecab (Korean morphological analyzer)**, only if you plan to run `notebook/BERTopic.ipynb`. The `mecab-python3` package installed by `requirements.txt` is a Python binding; it still requires the Mecab binary and a Korean dictionary to be installed at the OS level (via `konlpy`'s [Mecab installation guide](https://konlpy.org/en/latest/install/)). This step is notoriously more involved on Windows than on Linux/macOS.
 
 ### Installation
 
@@ -32,10 +38,14 @@ For **Windows users**, please refer to [this guide](https://gnuwin32.sourceforge
 
 3. Install dependencies:
    ```bash
-   make install
+   make install          # everything, including the R/stm setup for Structural_Topic_Model.ipynb
+   # or, if you don't have R and only want the Python notebooks:
+   make install-python
    ```
 
 Now you're ready to start exploring the topic modeling notebooks.
+
+> `requirements.txt` pins lower bounds (`>=`) rather than exact versions, so `make install` can resolve wheels that actually exist for whatever Python version you're on. One consequence: if pip picks newer library versions than the ones the notebooks were originally run with (numpy 1.26.4, pandas 2.0.0, tomotopy 0.12.7, bertopic 0.16.4, etc.), the exact topic wording/counts you get from re-running a notebook may differ slightly from the cached output already in it, even with the seed fixed.
 
 ## Available Notebooks
 
@@ -55,6 +65,8 @@ Each model is implemented in a separate Jupyter Notebook, providing explanations
     - Theory & Python Sample Code of Biterm Topic Model.
 7. **notebook/BERTopic.ipynb**:
    - Theory & Python Sample Code of BERTopic.
+
+Each Python notebook's code cells are also mirrored as a plain script under `notebook/src/` (e.g. `notebook/src/BERTopic.py`) for readers who want to run or diff the pipeline outside Jupyter. `Structural_Topic_Model.ipynb` (R) and `Topic_over_Times.ipynb` (theory only, no reference implementation exists) have no `src/` counterpart.
 
 ## Authors
 
