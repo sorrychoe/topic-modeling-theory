@@ -20,7 +20,8 @@ init:
 	$(python) -m pip install $(pip_user_option) --upgrade pip
 	$(python) -m pip install jupyter
 
-# Full setup for every notebook, including Structural_Topic_Model.ipynb (R/stm).
+# Full setup for every notebook, including the R notebooks
+# (Structural_Topic_Model.ipynb with stm, Topic_over_Times.ipynb with topicovertime).
 # Requires Rscript to be installed and on PATH.
 install: install-python install-r
 
@@ -28,7 +29,7 @@ install: install-python install-r
 install-python:
 	$(python) -m pip install $(pip_user_option) -r requirements.txt
 
-# Only needed for Structural_Topic_Model.ipynb. Requires R/Rscript to already
+# Only needed for Structural_Topic_Model.ipynb & Topic_over_Times.ipynb. Requires R/Rscript to already
 # be installed on the system; skip this target if you don't plan to run that
 # notebook.
 install-r:
