@@ -19,7 +19,7 @@ This repository provides an in-depth exploration of various topic modeling techn
 
 - **Python 3** with `pip`, on your `PATH`.
 
-- **R with `Rscript`**, only if you plan to run `notebook/Structural_Topic_Model.ipynb` or `notebook/Topic_over_Times.ipynb` (the notebooks implemented in R, via the `stm` and `topicovertime` packages). If you don't need them, skip `make install-r` below.
+- **R with `Rscript`**, only if you plan to run `notebook/Structural_Topic_Model.ipynb` or `notebook/Topic_over_Time.ipynb` (the notebooks implemented in R, via the `stm` and `topicovertime` packages). If you don't need them, skip `make install-r` below.
 
 - **Mecab (Korean morphological analyzer)**, only if you plan to run `notebook/BERTopic.ipynb`. The `mecab-python3` package installed by `requirements.txt` is a Python binding; it still requires the Mecab binary and a Korean dictionary to be installed at the OS level (via `konlpy`'s [Mecab installation guide](https://konlpy.org/en/latest/install/)). This step is notoriously more involved on Windows than on Linux/macOS.
 
@@ -38,7 +38,7 @@ This repository provides an in-depth exploration of various topic modeling techn
 
 3. Install dependencies:
    ```bash
-   make install          # everything, including the R setup for Structural_Topic_Model.ipynb & Topic_over_Times.ipynb
+   make install          # everything, including the R setup for Structural_Topic_Model.ipynb & Topic_over_Time.ipynb
    # or, if you don't have R and only want the Python notebooks:
    make install-python
    ```
@@ -55,7 +55,7 @@ Each model is implemented in a separate Jupyter Notebook, providing explanations
    - Theory & Python Sample Code of Latent Dirichlet Allocation.
 2. **notebook/Dynamic_Topic_Model.ipynb**:
    - Theory & Python Sample Code of Dynamic Topic Model.
-3. **notebook/Topic_over_Times.ipynb**:
+3. **notebook/Topic_over_Time.ipynb**:
    - Theory & R Sample Code of Topics Over Time.
 4. **notebook/Correlated_Topic_Model.ipynb**:
    - Theory & Python Sample Code of Correlated Topic Model.
@@ -66,7 +66,7 @@ Each model is implemented in a separate Jupyter Notebook, providing explanations
 7. **notebook/BERTopic.ipynb**:
    - Theory & Python Sample Code of BERTopic.
 
-Each notebook's code cells are also mirrored as a plain script under `notebook/src/` (e.g. `notebook/src/BERTopic.py`, or `notebook/src/Topic_over_Times.R` for the R notebooks) for readers who want to run or diff the pipeline outside Jupyter.
+Each notebook's code cells are also mirrored as a plain script under `notebook/src/` (e.g. `notebook/src/BERTopic.py`, or `notebook/src/Topic_over_Time.R` for the R notebooks) for readers who want to run or diff the pipeline outside Jupyter.
 
 ## Authors
 
