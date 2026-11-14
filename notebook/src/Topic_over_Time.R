@@ -1,5 +1,5 @@
 # import librarys
-library(topicovertime) # for ToT
+library(topicsovertime) # for ToT
 library(tidyverse) # for Data preprocessing(dplyr, tidyr), visualization(ggplot2) & use pipeline operator(magrittr)
 library(tidytext) # for Text preprocessing
 library(showtext) # for set the Korean font

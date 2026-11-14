@@ -16,8 +16,8 @@ if (!require("stm")) {
 if (!require("readxl")) {
     install.packages("readxl")
 }
-if (!require("topicovertime")) {
+if (!require("topicsovertime")) {
     # not on CRAN yet; install from GitHub
     if (!require("remotes")) install.packages("remotes")
-    remotes::install_github("sorrychoe/topicovertime")
+    remotes::install_github("sorrychoe/topicsovertime")
 }

@@ -19,7 +19,7 @@ This repository provides an in-depth exploration of various topic modeling techn
 
 - **Python 3** with `pip`, on your `PATH`.
 
-- **R with `Rscript`**, only if you plan to run `notebook/Structural_Topic_Model.ipynb` or `notebook/Topic_over_Time.ipynb` (the notebooks implemented in R, via the `stm` and `topicovertime` packages). If you don't need them, skip `make install-r` below.
+- **R with `Rscript`**, only if you plan to run `notebook/Structural_Topic_Model.ipynb` or `notebook/Topic_over_Time.ipynb` (the notebooks implemented in R, via the `stm` and `topicsovertime` packages). If you don't need them, skip `make install-r` below.
 
 - **Mecab (Korean morphological analyzer)**, only if you plan to run `notebook/BERTopic.ipynb`. The `mecab-python3` package installed by `requirements.txt` is a Python binding; it still requires the Mecab binary and a Korean dictionary to be installed at the OS level (via `konlpy`'s [Mecab installation guide](https://konlpy.org/en/latest/install/)). This step is notoriously more involved on Windows than on Linux/macOS.
 

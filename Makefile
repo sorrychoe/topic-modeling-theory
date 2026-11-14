@@ -21,7 +21,7 @@ init:
 	$(python) -m pip install jupyter
 
 # Full setup for every notebook, including the R notebooks
-# (Structural_Topic_Model.ipynb with stm, Topic_over_Time.ipynb with topicovertime).
+# (Structural_Topic_Model.ipynb with stm, Topic_over_Time.ipynb with topicsovertime).
 # Requires Rscript to be installed and on PATH.
 install: install-python install-r
 
