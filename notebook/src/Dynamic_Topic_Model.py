@@ -83,7 +83,7 @@ def dtm_plot(df):
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
-df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
+df = pd.read_excel("../data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
 # add the time stamp for DTM
 df["시점"] = (round(df["일자"]/10000,0)%1995).astype(int)

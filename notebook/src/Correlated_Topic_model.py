@@ -104,12 +104,12 @@ def get_ctm_network(mdl):
 
     g.barnes_hut(gravity=-1000, spring_length=20)
     g.show_buttons()
-    g.show("view/topic_network.html", notebook=False)
+    g.show("../view/topic_network.html", notebook=False)
 
     # Match the rest of the page (<body>, card wrapper, headings) to the same
     # dark background, since pyvis leaves everything outside #mynetwork
     # unstyled.
-    with open("view/topic_network.html", "r", encoding="utf-8") as f:
+    with open("../view/topic_network.html", "r", encoding="utf-8") as f:
         html = f.read()
     html = html.replace(
         "<head>",
@@ -117,14 +117,14 @@ def get_ctm_network(mdl):
         '<style>html, body { background-color: #1e1e1e; }</style>',
         1,
     )
-    with open("view/topic_network.html", "w", encoding="utf-8") as f:
+    with open("../view/topic_network.html", "w", encoding="utf-8") as f:
         f.write(html)
 
 
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
-df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
+df = pd.read_excel("../data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
 # proper k value
 proper_k = find_proper_k(df, 3, 10)

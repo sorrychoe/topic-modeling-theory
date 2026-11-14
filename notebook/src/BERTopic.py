@@ -37,7 +37,7 @@ class CustomTokenizer:
 # data load
 # The data is related to Handong University,
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
-df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
+df = pd.read_excel("../data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
 # add the time stamp for BERTopic's topics_over_time
 df["시점"] = (round(df["일자"]/10000,0)).astype(int)
@@ -100,9 +100,9 @@ print(topics_over_time.head(20))
 tot_vis = topic_model.visualize_topics_over_time(topics_over_time, top_n_topics=30)
 
 # save the result
-BERTopic_vis.write_html("view/bertopic_vis.html")
-hierachy_vis.write_html("view/hierachy_vis.html")
-heatmap_vis.write_html("view/heatmap_vis.html")
-barchart_vis.write_html("view/barchart_vis.html")
-rank_vis.write_html("view/rank_vis.html")
-tot_vis.write_html("view/tot_vis.html")
+BERTopic_vis.write_html("../view/bertopic_vis.html")
+hierachy_vis.write_html("../view/hierachy_vis.html")
+heatmap_vis.write_html("../view/heatmap_vis.html")
+barchart_vis.write_html("../view/barchart_vis.html")
+rank_vis.write_html("../view/rank_vis.html")
+tot_vis.write_html("../view/tot_vis.html")

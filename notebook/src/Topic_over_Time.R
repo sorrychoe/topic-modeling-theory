@@ -14,7 +14,7 @@ set.seed(42)
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
-df <- read_xlsx("data/NewsResult_19950101-20240930.xlsx")
+df <- read_xlsx("../data/NewsResult_19950101-20240930.xlsx")
 
 # ToT uses the publication date itself as a continuous timestamp.
 # Unlike DTM, there is no need to cut the data into time slices.

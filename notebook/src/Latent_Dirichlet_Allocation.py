@@ -95,12 +95,12 @@ def get_ldavis(mdl):
     )
 
     # save result
-    pyLDAvis.save_html(prepared_data, 'view/ldavis.html')
+    pyLDAvis.save_html(prepared_data, '../view/ldavis.html')
 
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
-df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
+df = pd.read_excel("../data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
 #find proper k value
 proper_k = find_proper_k(df, 3,10)

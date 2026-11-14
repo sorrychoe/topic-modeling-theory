@@ -3,11 +3,12 @@ library(tidyverse)
 library(tidytext)
 library(tm)
 library(showtext)
+library(readxl)
 
 font_add_google(name = "Nanum Gothic", family = "nanumgothic")
 showtext_auto()
 
-df <- read_xlsx("data/NewsResult_19950101-20240930.xlsx")
+df <- read_xlsx("../data/NewsResult_19950101-20240930.xlsx")
 
 df$키워드 <- gsub(",", " ", df$키워드)
 

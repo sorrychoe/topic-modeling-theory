@@ -66,7 +66,7 @@ Each model is implemented in a separate Jupyter Notebook, providing explanations
 7. **notebook/BERTopic.ipynb**:
    - Theory & Python Sample Code of BERTopic.
 
-Each notebook's code cells are also mirrored as a plain script under `notebook/src/` (e.g. `notebook/src/BERTopic.py`, or `notebook/src/Topic_over_Time.R` for the R notebooks) for readers who want to run or diff the pipeline outside Jupyter.
+Each notebook's code cells are also mirrored as a plain script under `notebook/src/` (e.g. `notebook/src/BERTopic.py`, or `notebook/src/Topic_over_Time.R` for the R notebooks) for readers who want to run or diff the pipeline outside Jupyter. Run them from inside `notebook/src/` (e.g. `cd notebook/src && python3 BERTopic.py` or `Rscript Topic_over_Time.R`), since data and output paths are relative to that folder.
 
 ## Authors
 

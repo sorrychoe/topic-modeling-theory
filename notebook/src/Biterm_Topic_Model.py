@@ -76,7 +76,7 @@ def find_proper_t(X:np.ndarray, vocabulary:np.ndarray, start:int, end:int):
 # data load
 # The data is related to Handong University, 
 # which was reported in major Korean daily newspapers from January 1995 to September 2024.
-df = pd.read_excel("data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
+df = pd.read_excel("../data/NewsResult_19950101-20240930.xlsx", engine="openpyxl")
 
 # Preprocessing text data
 # In this case, I use headline data for BTM
